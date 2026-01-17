@@ -1,23 +1,19 @@
+# Test-Datei für die fair_sharer Funktion
 from fairsharer.fair_sharer import fair_sharer
 
-# Test-Datei für die fair_sharer Funktion
 
-def test_eine_iteration():
-    """Testet das Beispiel aus der Aufgabenstellung mit einer Iteration."""
-    ergebnis = fair_sharer([0, 1000, 800, 0], 1)
-    erwartet = [100, 800, 900, 0]
-    assert ergebnis == erwartet
-
-
-def test_zwei_iterationen():
-    """Testet das Beispiel aus der Aufgabenstellung mit zwei Iterationen."""
-    ergebnis = fair_sharer([0, 1000, 800, 0], 2)
-    erwartet = [100, 890, 720, 90]
-    assert ergebnis == erwartet
+def test_fair_sharer():
+    """Testet die Beispiele aus der Aufgabenstellung."""
+    # Test mit einer Iteration
+    ergebnis1 = fair_sharer([0, 1000, 800, 0], 1)
+    assert ergebnis1 == [100, 800, 900, 0]
+    
+    # Test mit zwei Iterationen
+    ergebnis2 = fair_sharer([0, 1000, 800, 0], 2)
+    assert ergebnis2 == [100, 890, 720, 90]
 
 
-def test_zirkulaere_nachbarn():
-    """Testet ob das erste und letzte Element korrekt als Nachbarn behandelt werden."""
+def test_fair_sharer_zirkulaer():
+    """Testet ob das erste und letzte Element Nachbarn sind."""
     ergebnis = fair_sharer([1000, 0, 0, 0], 1)
-    erwartet = [800, 100, 0, 100]
-    assert ergebnis == erwartet
+    assert ergebnis == [800, 100, 0, 100]
