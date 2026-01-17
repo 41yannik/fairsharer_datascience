@@ -1,14 +1,15 @@
 [project]
 name = "fairsharer"
 version = "0.1.0"
-description = "Fair Sharer Algorithm - DAISY Portfolio Exercise"
+description = "Fair Sharer Algorithmus für die DAISY Vorlesung"
 requires-python = ">=3.10"
-
-[project.optional-dependencies]
-dev = [
+dependencies = [
     "pytest",
     "ruff",
 ]
 
 [tool.ruff]
 line-length = 88
+
+# Projekt-Konfiguration für fairsharer
+# DAISY Portfolio Übung - Wintersemester 2025/26

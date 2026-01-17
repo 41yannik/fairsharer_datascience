@@ -1,42 +1,46 @@
 def fair_sharer(values, num_iterations, share=0.1):
-    """Runs num_iterations.
+    """
+    Verteilt Werte über mehrere Iterationen um.
     
-    In each iteration the highest value in "values" gives a fraction (share)
-    to both the left and right neighbor. The leftmost field is considered
-    the neighbor of the rightmost field.
+    In jeder Iteration gibt der höchste Wert einen Anteil (share)
+    an beide Nachbarn ab. Das erste und letzte Element sind
+    ebenfalls Nachbarn (zirkulär).
     
-    Examples:
+    Beispiele:
         fair_sharer([0, 1000, 800, 0], 1) --> [100, 800, 900, 0]
         fair_sharer([0, 1000, 800, 0], 2) --> [100, 890, 720, 90]
     
-    Args:
-        values: 1D array of values (list or numpy array)
-        num_iterations: Integer to set the number of iterations
-        share: Fraction to give to each neighbor (default 0.1)
+    Parameter:
+        values: Liste mit Werten
+        num_iterations: Anzahl der Durchläufe
+        share: Anteil der abgegeben wird (Standard: 0.1 = 10%)
     
-    Returns:
-        List with redistributed values
+    Rückgabe:
+        Liste mit neu verteilten Werten
     """
-    # 1. Kopie der Liste erstellen
-    values_new = list(values)
+    # Kopie erstellen, damit Original nicht verändert wird
+    ergebnis = list(values)
     
-    # 2. Wiederhole num_iterations mal
-    for _ in range(num_iterations):
-        # Finde den Index des höchsten Wertes
-        max_index = values_new.index(max(values_new))
+    # Hauptschleife: so oft wiederholen wie gewünscht
+    for i in range(num_iterations):
+        # Höchsten Wert und dessen Position finden
+        hoechster_wert = max(ergebnis)
+        position = ergebnis.index(hoechster_wert)
         
-        # Berechne den Anteil, der abgegeben wird
-        amount = values_new[max_index] * share
+        # Berechnen wie viel abgegeben wird
+        abgabe = hoechster_wert * share
         
-        # Ziehe 2x den Anteil vom höchsten Wert ab (einmal für links, einmal für rechts)
-        values_new[max_index] -= 2 * amount
+        # Vom höchsten Wert abziehen (2x, weil links und rechts)
+        ergebnis[position] = ergebnis[position] - (2 * abgabe)
         
-        # Gib den Anteil an den linken Nachbarn (mit Modulo für zirkulär)
-        left_index = (max_index - 1) % len(values_new)
-        values_new[left_index] += amount
+        # An linken Nachbarn geben
+        # Modulo sorgt dafür, dass nach Index 0 der letzte Index kommt
+        links = (position - 1) % len(ergebnis)
+        ergebnis[links] = ergebnis[links] + abgabe
         
-        # Gib den Anteil an den rechten Nachbarn (mit Modulo für zirkulär)
-        right_index = (max_index + 1) % len(values_new)
-        values_new[right_index] += amount
+        # An rechten Nachbarn geben
+        # Modulo sorgt dafür, dass nach dem letzten Index wieder 0 kommt
+        rechts = (position + 1) % len(ergebnis)
+        ergebnis[rechts] = ergebnis[rechts] + abgabe
     
-    return values_new
+    return ergebnis

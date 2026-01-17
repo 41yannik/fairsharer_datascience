@@ -1,3 +1,6 @@
+# Python Cache-Dateien ignorieren
 __pycache__/
 *.pyc
+
+# Pytest Cache ignorieren
 .pytest_cache/
